@@ -5,12 +5,12 @@ import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
 
 
-export default function ImageGallery ({ photoName, onClick  }) {
+export default function ImageGallery ({ photoName, onClick }) {
   return (
     <ImageGalleryList>
       {photoName.map(photo  => (
         <ImageGalleryItem
-          key={image.id}
+          key={photo.id}
           photo ={photo}
           onClick={onClick}
         />

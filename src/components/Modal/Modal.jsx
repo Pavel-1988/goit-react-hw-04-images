@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default function Modal({ onClose, children }) {
+export default function Modal({url, onClose }) {
   
   const handleKeyDown = e => {
     if (e.code === 'Escape') {
@@ -30,9 +30,10 @@ export default function Modal({ onClose, children }) {
     return createPortal(
       <Overlay
         onClick={handleBackdropClick}
-        onKeyPress={handleKeyDown}
       >
-        <Window>{children}</Window>
+        <Window>
+          <img  src={url} alt="" />
+        </Window>
       </Overlay>,
       modalRoot
     );
@@ -41,6 +42,6 @@ export default function Modal({ onClose, children }) {
   
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
+  url: PropTypes.element.isRequired,
 };
 
