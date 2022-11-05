@@ -29,7 +29,6 @@ export default function App() {
 
   
      setStatus('pending');
-
       fetch(
       `https://pixabay.com/api/?q=${photoName}&page=${page}&key=29451917-11054f18e01d02c62ffb7517a&image_type=photo&orientation=horizontal&per_page=12`
     )

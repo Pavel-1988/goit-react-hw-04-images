@@ -1,6 +1,7 @@
-import React, {useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ImageGalleryListItem } from './ImageGalleryItem.styled';
+
 
 export default function ImageGalleryItem({
   photo: { webformatURL, largeImageURL, tags },
