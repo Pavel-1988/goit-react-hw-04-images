@@ -1,4 +1,3 @@
-// import React from 'react';
 import { LoadMoreBtn } from './Button.styled';
 import PropTypes from 'prop-types'
 
@@ -7,7 +6,6 @@ import PropTypes from 'prop-types'
     Load more
    </LoadMoreBtn>
  )
-
 
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,

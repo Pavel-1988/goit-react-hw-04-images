@@ -12,8 +12,6 @@ import Button  from './Button/Button'
 import Loader from './Loader/Loader'
 import Modal from './Modal/Modal'
 
-
-
 export default function App() {
 
   const [photoName, setPhotoName] = useState('');
@@ -21,8 +19,6 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [currentLargeImageURL, setCurrentLargeImageURL] = useState('');
   const [searchTotal, setSearchTotal] = useState(null);
-  // const [loader, setLoader] = useState(false);
-
   const [status, setStatus] = useState('idle');
 
 
@@ -31,7 +27,7 @@ export default function App() {
       return
     }
 
-    // setLoader(true);
+  
      setStatus('pending');
 
       fetch(
@@ -43,20 +39,17 @@ export default function App() {
         }
         return Promise.reject(new Error('Change your search query'));
       })
-        .then(photo => {
+      .then(photo => {
 
-          if (photo.total === 0) {
-            return toast.error(
-              `Something went wrong. No " ${photoName} " image was found`
-            )
-          }
-         
-
-          setSearchTotal(photo.total);
-          setPhoto(prevState => [...prevState, ...photo.hits])
+        if (photo.total === 0) {
+          return toast.error(
+            `Something went wrong. No " ${photoName} " image was found`
+          )
+        }
+        setSearchTotal(photo.total);
+        setPhoto(prevState => [...prevState, ...photo.hits])
+        setStatus('resolved');
        })
-      //  .finally(setLoader(false))
-        
         .catch(error => {
           return toast.error(error.message);
         });
@@ -88,6 +81,7 @@ export default function App() {
   return (
     <Container>
       <ToastContainer autoClose={2000} />
+  
       <Searchbar onSubmit={handlerFormSubmit} page={page} />
 
       {status === 'pending' && (
@@ -95,57 +89,17 @@ export default function App() {
             <Loader />
           </Container>
         )}
-
-
-      {searchTotal > 12 &&
-        <ImageGallery photoName={photo} onClick={onOpenModalWithLargeImage} />
-      }
-      {searchTotal > 12 &&
-        <Button onClick={hendlerMoreClick} />
-      }
-
-
-      {/* {searchTotal > 12 && (
+      
+      {searchTotal > 12 && (
         <Container>
-          <ImageGallery photoName={photo} onClick={onOpenModalWithLargeImage}  />
+          <ImageGallery photoName={photo} onClick={onOpenModalWithLargeImage} />
           {status === 'pending' ? <Loader /> : <Button onClick={hendlerMoreClick} />}
         </Container>
-      )} */}
-
-      
-
-       {currentLargeImageURL && (
-        <Modal onClose={onModalClose} url={currentLargeImageURL} />
       )}
-      
 
-
-
+      {currentLargeImageURL && (
+        <Modal onClose={onModalClose} url={currentLargeImageURL} />
+      )} 
     </Container>
   );
-
-
 }
-//=================
-// return (
-//       <Container>
-//         <ToastContainer autoClose={2000} />
-//         <SearchBar onSubmit={this.handleFormSubmit} />
-//         {status === 'pending' && (
-//           <Container>
-//             <Loader />
-//           </Container>
-//         )}
-
-//         {image.length > 0 && (
-//           <Container>
-//             <ImageGallery images={image} imgAlt={imgName} />
-//             {status === 'pending' ? 
-//               <Loader />
-//              : 
-//               <Button onClick={this.loadMore} />
-//             }
-//           </Container>
-//         )}
-//       </Container>
-//     );
